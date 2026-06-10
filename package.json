@@ -1,0 +1,12 @@
+{
+  "name": "reactjs",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Ajay Birari",
+  "type": "commonjs",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
