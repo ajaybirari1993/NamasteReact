@@ -1,0 +1,12 @@
+.shimmer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+.shimmer-rest-card {
+  height: 300px;
+  width: 300px;
+  background: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
