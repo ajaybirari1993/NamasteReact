@@ -4,6 +4,17 @@ import { GET_RESTAURANT_URL } from "../../utils.js/constant";
 import { ShimmerRest } from "../ShimmerRest";
 import "./style.css";
 
+const debounce = (cb, delay) => {
+  let timer;
+
+  return (...params) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      cb(...params);
+    }, delay);
+  };
+};
+
 const Body = () => {
   const [restaurantData, setRestaurantData] = useState([]);
   const [filterData, setFilterdata] = useState([]);
@@ -15,17 +26,6 @@ const Body = () => {
       (rest) => rest?.info?.avgRatingString >= 4.2,
     );
     setRestaurantData(filterRes);
-  };
-
-  const debounce = (cb, delay) => {
-    let timer;
-
-    return (...params) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        cb(...params);
-      }, delay);
-    };
   };
 
   const debouncedSearch = useRef(
@@ -92,6 +92,7 @@ const Body = () => {
       <div className="rest-container">
         {filterData.map((restaurant) => {
           const {
+            id,
             name,
             costForTwo,
             areaName,
@@ -101,7 +102,7 @@ const Body = () => {
           } = restaurant.info;
           return (
             <RestaurantCard
-              key={name}
+              key={id}
               name={name}
               costForTwo={costForTwo}
               areaName={areaName}
