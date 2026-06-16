@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { RestaurantCard } from "../RestaurantCard";
 import { GET_RESTAURANT_URL } from "../../utils.js/constant";
 import { ShimmerRest } from "../ShimmerRest";
-import "./style.css";
 
 const debounce = (cb, delay) => {
   let timer;
@@ -69,27 +68,34 @@ const Body = () => {
   }
 
   return (
-    <div className="body-container">
-      <div className="search-btn-wrapper">
-        <div className="search-input-wrapper">
+    <div className="flex flex-col gap-3 border border-solid border-[#ccc] rounded-[5px] py-1.5 px-3  ">
+      <div className="flex gap-4 justify-between">
+        <div className="flex gap-2">
           <input
             type="text"
-            className="search-input"
+            className="p-1.5 border border-solid border-[#ccc] rounded-sm w-[200px]"
             value={searchText}
             placeholder="Restaurant"
             onChange={handleInputChange}
           />
-          <button className="search-btn" onClick={applySearchFilter}>
+          <button
+            className="bg-[#54039b] rounded-sm p-1.5 text-white border-none cursor-pointer hover:bg-[#9852d8] hover:scale-[1.01]"
+            onClick={applySearchFilter}
+          >
             Search
           </button>
         </div>
 
-        <button className="search-btn" onClick={filterTopRatedRes}>
+        <button
+          className="bg-[#54039b] rounded-sm p-1.5 text-white border-none cursor-pointer hover:bg-[#9852d8] hover:scale-[1.01]"
+          onClick={filterTopRatedRes}
+        >
           {" "}
           Top rated
         </button>
       </div>
-      <div className="rest-container">
+
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
         {filterData.map((restaurant) => {
           const {
             id,

@@ -11,14 +11,14 @@ const RestaurantCard = ({
 }) => {
   const imgUrl = BASE_IMAGE_URL + cloudinaryImageId;
   return (
-    <div className="rest-card">
-      <div className="rest-banner-wrapper">
-        <img src={imgUrl} />
+    <div className="border border-solid border-[#ccc] rounded-[5px] cursor-pointer hover:scale-[1.01] hover:shadow">
+      <div className="rest-banner-wrapper p-1">
+        <img className="h-[150px] w-[100%] rounded-[5px]" src={imgUrl} />
       </div>
-      <h3>{name}</h3>
-      <h4>{costForTwo}</h4>
-      <p>{areaName}</p>
-      <p>
+      <h3 className="m-1.5">{name}</h3>
+      <h4 className="m-1.5">{costForTwo}</h4>
+      <p className="m-1.5">{areaName}</p>
+      <p className="m-1.5">
         {rating} ({ratingCount})
       </p>
     </div>

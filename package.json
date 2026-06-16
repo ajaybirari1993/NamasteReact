@@ -14,10 +14,12 @@
     "parcel": "^2.16.4"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router": "^6.30.1",
-    "react-router-dom": "^6.30.1"
+    "react-router-dom": "^6.30.1",
+    "tailwindcss": "^4.3.1"
   },
   "browersList": [
     "last 2 versions"

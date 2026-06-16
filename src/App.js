@@ -8,7 +8,7 @@ const About = lazy(() => import("./components/About/About"));
 
 const AppLayout = () => {
   return (
-    <div className="app-wrapper">
+    <div className="flex flex-col gap-4">
       <Header />
       <Outlet />
       <p>Footer</p>
