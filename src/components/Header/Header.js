@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { LOGO_URL } from "../../utils.js/constant";
+import { UserContext } from "../../utils.js/UserContext";
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const { name } = useContext(UserContext);
 
   const handleLogin = () => {
     setIsLogin((prev) => !prev);
@@ -41,6 +43,8 @@ const Header = () => {
             onClick={handleLogin}
           >
             {isLogin ? "Login" : "Logout"}
+            &nbsp;
+            {name}
           </button>
         </li>
       </div>

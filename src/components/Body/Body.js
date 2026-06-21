@@ -1,7 +1,16 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { RestaurantCard } from "../RestaurantCard";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useContext,
+} from "react";
+import { RestaurantCard, withDealLabel } from "../RestaurantCard";
 import { GET_RESTAURANT_URL } from "../../utils.js/constant";
 import { ShimmerRest } from "../ShimmerRest";
+import { useDispatch, useSelector } from "react-redux";
+import { setRestaurantsList } from "../../utils.js/slices/restaurantSlice";
+// import { UserContext } from "../../utils.js/UserContext";
 
 const debounce = (cb, delay) => {
   let timer;
@@ -14,17 +23,25 @@ const debounce = (cb, delay) => {
   };
 };
 
-const Body = () => {
-  const [restaurantData, setRestaurantData] = useState([]);
-  const [filterData, setFilterdata] = useState([]);
+const RestaurantDeal = withDealLabel(RestaurantCard);
 
+const Body = () => {
+  const dispatch = useDispatch();
+
+  const restaurantData = useSelector(
+    (state) => state.restaurant.restaurantsList,
+  );
+
+  const [filterData, setFilterdata] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  // const { name, updateName } = useContext(UserContext);
 
   const filterTopRatedRes = () => {
     const filterRes = restaurantData.filter(
       (rest) => rest?.info?.avgRatingString >= 4.2,
     );
-    setRestaurantData(filterRes);
+    setFilterdata(filterRes);
   };
 
   const debouncedSearch = useRef(
@@ -42,7 +59,6 @@ const Body = () => {
     const filtedRest = restaurantData.filter((rest) =>
       rest.info.name.toLowerCase().includes(searchText.toLowerCase()),
     );
-    console.log(filtedRest);
 
     setFilterdata(filtedRest);
   };
@@ -55,7 +71,7 @@ const Body = () => {
       result?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
 
-    setRestaurantData(data);
+    dispatch(setRestaurantsList(data));
     setFilterdata(data);
   };
 
@@ -63,8 +79,12 @@ const Body = () => {
     fetchData();
   }, []);
 
-  if (restaurantData.length === 0) {
+  if (filterData.length === 0) {
     return <ShimmerRest />;
+  }
+
+  if (restaurantData.length === 0) {
+    return <h3>No restaurant found</h3>;
   }
 
   return (
@@ -85,6 +105,17 @@ const Body = () => {
             Search
           </button>
         </div>
+        {/* 
+        <div className="ml-2">
+          <label htmlFor="userName">Name: </label>
+          <input
+            type="text"
+            className="p-1.5 border border-solid border-[#ccc] rounded-sm w-[200px]"
+            value={name}
+            placeholder="Restaurant"
+            onChange={(e) => updateName(e.target.value)}
+          />
+        </div> */}
 
         <button
           className="bg-[#54039b] rounded-sm p-1.5 text-white border-none cursor-pointer hover:bg-[#9852d8] hover:scale-[1.01]"
@@ -105,8 +136,20 @@ const Body = () => {
             cloudinaryImageId,
             avgRatingString,
             totalRatingsString,
+            aggregatedDiscountInfoV3,
           } = restaurant.info;
-          return (
+          return aggregatedDiscountInfoV3?.header ? (
+            <RestaurantDeal
+              key={id}
+              name={name}
+              costForTwo={costForTwo}
+              areaName={areaName}
+              cloudinaryImageId={cloudinaryImageId}
+              rating={avgRatingString}
+              ratingCount={totalRatingsString}
+              deal={aggregatedDiscountInfoV3}
+            />
+          ) : (
             <RestaurantCard
               key={id}
               name={name}

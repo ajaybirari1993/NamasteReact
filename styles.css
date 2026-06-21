@@ -1,7 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 @import "tailwindcss";
 
+/* Set the base font for the website */
 body {
   margin: 24px;
   font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+/* Ensure headings use the font but maintain their distinct weights */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700; /* Make sure you imported the 700 weight from Google Fonts! */
 }
