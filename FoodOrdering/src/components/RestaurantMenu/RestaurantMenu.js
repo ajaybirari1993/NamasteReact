@@ -8,10 +8,8 @@ const RestaurantMenu = () => {
 
   const fetchMenu = async () => {
     const data = await fetch(REST_MENU);
-    console.log(data);
 
     const json = await data.json();
-    console.log(json);
   };
 
   return (

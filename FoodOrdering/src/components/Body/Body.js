@@ -39,7 +39,7 @@ const Body = () => {
 
   const filterTopRatedRes = () => {
     const filterRes = restaurantData.filter(
-      (rest) => rest?.info?.avgRatingString >= 4.2,
+      (rest) => rest?.info?.avgRatingString >= 4.5,
     );
     setFilterdata(filterRes);
   };
@@ -93,6 +93,7 @@ const Body = () => {
         <div className="flex gap-2">
           <input
             type="text"
+            data-testid="search-input"
             className="p-1.5 border border-solid border-[#ccc] rounded-sm w-[200px]"
             value={searchText}
             placeholder="Restaurant"

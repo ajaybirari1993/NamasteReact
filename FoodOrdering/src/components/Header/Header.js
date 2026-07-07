@@ -42,10 +42,10 @@ const Header = () => {
             className="bg-[#8a2be2] rounded-[4px] p-1.5 text-white border-none cursor-pointer hover:bg-[#9852d8] hover:scale-[1.01]"
             onClick={handleLogin}
           >
-            {isLogin ? "Login" : "Logout"}
-            &nbsp;
-            {name}
+            {isLogin ? "Logout" : "Login"}
           </button>
+          &nbsp;
+          {name}
         </li>
       </div>
     </div>

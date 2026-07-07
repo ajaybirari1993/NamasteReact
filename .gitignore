@@ -1,3 +1,6 @@
-/node_modules
-/dist
+/FoodOrdering/node_modules
+/FoodOrdering/dist
+/FoodOrdering/.parcel-cache
 /.parcel-cache
+/FoodOrdering/coverage
+/netflix-gpt/node_modules
