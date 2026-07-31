@@ -1,6 +1,11 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
-import { checkValidation } from "../utils/validation";
+import { checkValidation, getFirebaseErrorMessage } from "../utils/validation";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSingIn, setIsSignin] = useState(true);
@@ -18,7 +23,45 @@ const Login = () => {
       emailRef.current.value,
       passwordRef.current.value,
     );
+
     setErrorMsg(messages);
+    if (messages) return;
+
+    if (isSingIn) {
+      // sign in logic
+      signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value,
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const msg = getFirebaseErrorMessage(error.code);
+          console.log(msg);
+          setErrorMsg(msg);
+        });
+    } else {
+      // sign up logic
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value,
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const msg = getFirebaseErrorMessage(error.code);
+          console.log(msg);
+          setErrorMsg(msg);
+        });
+    }
   };
 
   return (
