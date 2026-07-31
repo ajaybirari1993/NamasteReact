@@ -1,3 +1,5 @@
+import { firebaseErrorMessages } from "./constants";
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()_\-+=])[A-Za-z\d@$!%*?&^#()_\-+=]{8,}$/;
@@ -18,5 +20,11 @@ export const checkValidation = (email, password) => {
   if (!validMail) error.push("Invalid email");
   if (!validPassword) error.push("Invalid password");
 
-  return error.join(" ");
+  return error.length ? error.join(" ") : null;
+};
+
+export const getFirebaseErrorMessage = (code) => {
+  return (
+    firebaseErrorMessages[code] ?? "Something went wrong. Please try again."
+  );
 };
