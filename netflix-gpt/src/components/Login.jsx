@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidation } from "../utils/validation";
 
 const Login = () => {
   const [isSingIn, setIsSignin] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const toggleSignIn = () => {
     setIsSignin((prev) => !prev);
+  };
+
+  const handleButtonClick = () => {
+    const messages = checkValidation(
+      emailRef.current.value,
+      passwordRef.current.value,
+    );
+    setErrorMsg(messages);
   };
 
   return (
@@ -27,6 +40,7 @@ const Login = () => {
              border border-white/10
              shadow-2xl
             absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        onSubmit={(e) => e.preventDefault()}
       >
         <h1 className="text-white text-2xl py-2">
           {isSingIn ? "Sign in" : "Sign Up"}
@@ -51,6 +65,7 @@ const Login = () => {
         )}
 
         <input
+          ref={emailRef}
           type="email"
           placeholder="Email"
           className="w-full px-4 py-3 mb-4
@@ -66,6 +81,7 @@ const Login = () => {
              transition-all duration-200"
         />
         <input
+          ref={passwordRef}
           type="password"
           placeholder="Password"
           className="w-full px-4 py-3 mb-4
@@ -90,9 +106,12 @@ const Login = () => {
              active:scale-[0.98]
              transition-all duration-200
              cursor-pointer"
+          onClick={handleButtonClick}
         >
           {isSingIn ? "Sign in" : "Sign Up"}
         </button>
+
+        <p className="mt-2 text-sm text-[#ff7f72]">{errorMsg}</p>
 
         <p className="text-white pt-2.5">
           {" "}
